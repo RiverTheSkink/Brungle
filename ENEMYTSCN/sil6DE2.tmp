@@ -1,0 +1,131 @@
+[gd_scene load_steps=14 format=3 uid="uid://baphyhi8ci0tv"]
+
+[ext_resource type="Texture2D" uid="uid://cvv2skoa6a0ii" path="res://ASSETS/enemies/silent/silentidle1.png" id="1_248tf"]
+[ext_resource type="Script" path="res://ENEMYTSCN/silent.gd" id="1_sm4qo"]
+[ext_resource type="Texture2D" uid="uid://2453586ha431" path="res://ASSETS/enemies/silent/silentidle2.png" id="2_4rr7y"]
+[ext_resource type="Texture2D" uid="uid://b6hpw8s3em4iq" path="res://ASSETS/enemies/silent/silentidle3.png" id="3_ginfu"]
+[ext_resource type="Script" path="res://ENEMYTSCN/laser.gd" id="5_t4o8h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awl0s"]
+atlas = ExtResource("1_248tf")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_alfv8"]
+atlas = ExtResource("2_4rr7y")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dd7t6"]
+atlas = ExtResource("3_ginfu")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_heobv"]
+atlas = ExtResource("2_4rr7y")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3p4ji"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_alfv8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dd7t6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_heobv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_okev1"]
+radius = 0.949448
+height = 3.9686
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_v81r5"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 53.379
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ae3gl"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.886275)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 10.0
+
+[node name="Silent" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("1_sm4qo")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50241, 0)
+sprite_frames = SubResource("SpriteFrames_3p4ji")
+animation = &"Idle"
+frame_progress = 0.715168
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 2.6, 0)
+shape = SubResource("CapsuleShape3D_okev1")
+
+[node name="laser" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 2.67676, 0.0147282)
+target_position = Vector3(0, -1000, 0)
+collision_mask = 3
+collide_with_areas = true
+debug_shape_thickness = 5
+script = ExtResource("5_t4o8h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="laser"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.2656, -26.3737, 2.38419e-07)
+mesh = SubResource("CylinderMesh_v81r5")
+surface_material_override/0 = SubResource("StandardMaterial3D_ae3gl")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://dewoicaek1oiy"]
+
+[ext_resource type="Texture2D" uid="uid://iifi5psun3uk" path="res://ASSETS/enemies/Bat/idle.png" id="1_du7g8"]
+[ext_resource type="Script" path="res://ENEMYTSCN/bat.gd" id="1_q78lk"]
+[ext_resource type="Texture2D" uid="uid://c7nuxi0vabhmb" path="res://ASSETS/enemies/Bat/idle2.png" id="2_hdxrd"]
+[ext_resource type="AudioStream" uid="uid://bicivf6j1aff4" path="res://AUDIO/batdeath.mp3" id="4_ijef4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymhqo"]
+atlas = ExtResource("1_du7g8")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7wnd"]
+atlas = ExtResource("2_hdxrd")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6o2s7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymhqo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7wnd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4liwr"]
+radius = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tpf4c"]
+radius = 0.243874
+
+[node name="bat" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_q78lk")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.595, 0, 0, 0, 0.595, 0, 0, 0, 0.595, 0, 4.65136, 0)
+billboard = 2
+sprite_frames = SubResource("SpriteFrames_6o2s7")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.646101, 0, 0, 0, 0.646101, 0, 0, 0, 0.646101, 0, 4.66933, 0)
+shape = SubResource("SphereShape3D_4liwr")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 3.0
+navigation_layers = 2
+height = 12.43
+radius = 1.0
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(4.93896, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.76943, 0)
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 4.72367, 0, 0, 0, 4.25942, 0, -0.0966554, 0)
+shape = SubResource("SphereShape3D_tpf4c")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_ijef4")
+bus = &"SFX"
+
+[connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

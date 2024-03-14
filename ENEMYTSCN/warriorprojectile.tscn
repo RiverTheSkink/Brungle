@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://sfs1xenq3uc1"]
+
+[ext_resource type="Script" path="res://warriorprojectile.gd" id="1_4qi4f"]
+[ext_resource type="Texture2D" uid="uid://dca7caai3haj0" path="res://ASSETS/enemies/warrior/projectile.png" id="2_oju7w"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_l6tg0"]
+radius = 0.384415
+
+[node name="warriorprojectile" type="RigidBody3D" groups=["warriorprojectile"]]
+collision_layer = 8
+collision_mask = 3
+gravity_scale = 0.0
+script = ExtResource("1_4qi4f")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+texture = ExtResource("2_oju7w")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_l6tg0")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.267
+one_shot = true
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://bg1ixnexa5o62"]
+
+[ext_resource type="Texture2D" uid="uid://di4fr8v3mbjm6" path="res://ASSETS/enemies/eyeless/eyeless.png" id="1_4o860"]
+[ext_resource type="Script" path="res://ENEMYTSCN/eyeless.gd" id="1_hrlxg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5deei"]
+atlas = ExtResource("1_4o860")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lmam6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5deei")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hduis"]
+radius = 2.0
+
+[node name="Eyeless" type="CharacterBody3D" groups=["enemies"]]
+transform = Transform3D(0.215, 0, 0, 0, 0.215, 0, 0, 0, 0.215, 0, 0, 0)
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_hrlxg")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+layers = 4
+billboard = 2
+sprite_frames = SubResource("SpriteFrames_lmam6")
+animation = &"idle"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_hduis")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 1.4
+avoidance_layers = 2
+avoidance_mask = 2
+
+[connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]

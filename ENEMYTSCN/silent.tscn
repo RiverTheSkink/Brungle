@@ -1,0 +1,143 @@
+[gd_scene load_steps=15 format=3 uid="uid://baphyhi8ci0tv"]
+
+[ext_resource type="Texture2D" uid="uid://cvv2skoa6a0ii" path="res://ASSETS/enemies/silent/silentidle1.png" id="1_248tf"]
+[ext_resource type="Script" path="res://ENEMYTSCN/silent.gd" id="1_sm4qo"]
+[ext_resource type="Texture2D" uid="uid://2453586ha431" path="res://ASSETS/enemies/silent/silentidle2.png" id="2_4rr7y"]
+[ext_resource type="Texture2D" uid="uid://b6hpw8s3em4iq" path="res://ASSETS/enemies/silent/silentidle3.png" id="3_ginfu"]
+[ext_resource type="Script" path="res://ENEMYTSCN/laser.gd" id="5_t4o8h"]
+[ext_resource type="AudioStream" uid="uid://cm2y6ksqv2dnk" path="res://AUDIO/silentdeath.mp3" id="6_ulrn0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awl0s"]
+atlas = ExtResource("1_248tf")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_alfv8"]
+atlas = ExtResource("2_4rr7y")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dd7t6"]
+atlas = ExtResource("3_ginfu")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_heobv"]
+atlas = ExtResource("2_4rr7y")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3p4ji"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_alfv8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dd7t6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_heobv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awl0s")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_okev1"]
+radius = 1.26363
+height = 3.92179
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_v81r5"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ae3gl"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.886275)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 10.0
+
+[node name="Silent" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("1_sm4qo")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50241, 0)
+sprite_frames = SubResource("SpriteFrames_3p4ji")
+animation = &"Idle"
+frame_progress = 0.0118541
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.78023, 0)
+shape = SubResource("CapsuleShape3D_okev1")
+
+[node name="laser" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2.67676, 0.0147282)
+target_position = Vector3(0, -1000, 0)
+collision_mask = 3
+debug_shape_thickness = 5
+script = ExtResource("5_t4o8h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="laser"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.0558055, -1.19209e-06)
+layers = 4
+mesh = SubResource("CylinderMesh_v81r5")
+surface_material_override/0 = SubResource("StandardMaterial3D_ae3gl")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="abouttofire" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[node name="deathsound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_ulrn0")
+volume_db = 41.681
+bus = &"SFX"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="abouttofire" to="." method="_on_abouttofire_timeout"]

@@ -1,0 +1,430 @@
+[gd_scene load_steps=41 format=3 uid="uid://5rhhmsxrm1tn"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_w0e6d"]
+[ext_resource type="Texture2D" uid="uid://bii5fxa8q4jhe" path="res://ASSETS/weapons/claw.png" id="2_ff786"]
+[ext_resource type="Texture2D" uid="uid://cuuwtxj76xcx6" path="res://ASSETS/weapons/clawclosed.png" id="3_wiga0"]
+[ext_resource type="AudioStream" uid="uid://bppj357lnr8hv" path="res://AUDIO/clawgrab.mp3" id="4_iea4h"]
+[ext_resource type="Texture2D" uid="uid://dc4vb7ax2n0yx" path="res://ASSETS/weapons/crosshair.png" id="4_wtyqy"]
+[ext_resource type="Texture2D" uid="uid://bypwry6tfgofw" path="res://ASSETS/weapons/meatsquare.png" id="5_ko3yw"]
+[ext_resource type="Texture2D" uid="uid://d27qrbtb0fmut" path="res://ASSETS/textures/deathscreen.png" id="7_5acrp"]
+[ext_resource type="Texture2D" uid="uid://bhgi8bcxpiy5u" path="res://ASSETS/textures/healthbar/healthidle1.png" id="8_eqvgd"]
+[ext_resource type="Texture2D" uid="uid://0k016cg5opgn" path="res://ASSETS/textures/healthbar/healthidle2.png" id="9_pj165"]
+[ext_resource type="Texture2D" uid="uid://cuqn84lq4hx43" path="res://ASSETS/textures/healthbar/1hp.png" id="10_wk21l"]
+[ext_resource type="Texture2D" uid="uid://ch1nr007v60sg" path="res://ASSETS/textures/healthbar/1hp2.png" id="11_xvjbf"]
+[ext_resource type="Texture2D" uid="uid://c1c7fbhk4moan" path="res://ASSETS/textures/healthbar/2hpidle.png" id="12_ebdcv"]
+[ext_resource type="Texture2D" uid="uid://cvx5e3iym6top" path="res://ASSETS/textures/healthbar/2hpidle2.png" id="13_bhy1r"]
+[ext_resource type="Texture2D" uid="uid://c0ay2ic3fxro7" path="res://ASSETS/textures/marked.png" id="14_kt2tf"]
+[ext_resource type="Texture2D" uid="uid://h424d54vmybp" path="res://ASSETS/textures/blindness.png" id="15_rchfo"]
+[ext_resource type="Script" path="res://HSlider.gd" id="16_d3j7o"]
+[ext_resource type="AudioStream" uid="uid://0nn17wrvxr7" path="res://AUDIO/enemyhit.mp3" id="16_mwrux"]
+[ext_resource type="FontFile" uid="uid://xa43cgxufhlm" path="res://FONTS/BeerGlass.ttf" id="17_cpqgf"]
+[ext_resource type="Texture2D" uid="uid://csjuubf4stcw5" path="res://ASSETS/weapons/hitmarker.png" id="18_1axqu"]
+[ext_resource type="AudioStream" uid="uid://cebx7f2y6f6rm" path="res://AUDIO/win.mp3" id="18_mr2qv"]
+[ext_resource type="AudioStream" uid="uid://c78s453t4ixxw" path="res://AUDIO/grwa.mp3" id="19_hrkqd"]
+[ext_resource type="AudioStream" uid="uid://c01cf2xcarijm" path="res://AUDIO/quickchiclescream.mp3" id="22_arjr4"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dv6xo"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_irsd7"]
+points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlojy"]
+atlas = ExtResource("2_ff786")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5xjj"]
+atlas = ExtResource("2_ff786")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5gat"]
+atlas = ExtResource("3_wiga0")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o232"]
+atlas = ExtResource("2_ff786")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jwiiy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlojy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5xjj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5gat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7o232")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45tlw"]
+atlas = ExtResource("8_eqvgd")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fep3"]
+atlas = ExtResource("9_pj165")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23ldr"]
+atlas = ExtResource("10_wk21l")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ich7f"]
+atlas = ExtResource("11_xvjbf")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kl7lj"]
+atlas = ExtResource("12_ebdcv")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxl23"]
+atlas = ExtResource("13_bhy1r")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_65xng"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_45tlw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1fep3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23ldr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ich7f")
+}],
+"loop": true,
+"name": &"idle1health",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kl7lj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxl23")
+}],
+"loop": true,
+"name": &"idle2health",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vexc"]
+atlas = ExtResource("18_1axqu")
+region = Rect2(48, 25, 16, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kb5hh"]
+atlas = ExtResource("18_1axqu")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a37vh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6vexc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kb5hh")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 5.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xirkm"]
+radius = 2.56666
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+collision_layer = 2
+collision_mask = 15
+script = ExtResource("1_w0e6d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CapsuleMesh_dv6xo")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_irsd7")
+
+[node name="Neck" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.513345, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Neck/Camera3D"]
+
+[node name="Claw" type="Control" parent="Neck/Camera3D/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Neck/Camera3D/CanvasLayer/Claw"]
+position = Vector2(952, 465)
+sprite_frames = SubResource("SpriteFrames_jwiiy")
+animation = &"shoot"
+autoplay = "idle"
+frame = 1
+frame_progress = 1.0
+
+[node name="clawgrab" type="AudioStreamPlayer" parent="Neck/Camera3D/CanvasLayer/Claw"]
+stream = ExtResource("4_iea4h")
+bus = &"SFX"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Neck/Camera3D/CanvasLayer/Claw"]
+visible = false
+layout_mode = 0
+offset_left = 435.0
+offset_top = 234.0
+offset_right = 863.0
+offset_bottom = 274.0
+theme_override_font_sizes/normal_font_size = 28
+text = "you can triple jump now i guess"
+
+[node name="TextureRect" type="TextureRect" parent="Neck/Camera3D/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_wtyqy")
+expand_mode = 1
+
+[node name="Death Screen" type="Control" parent="Neck/Camera3D/CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Neck/Camera3D/CanvasLayer/Death Screen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -22.0
+offset_right = 1151.0
+offset_bottom = 635.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_ko3yw")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Neck/Camera3D/CanvasLayer/Death Screen"]
+layout_mode = 0
+offset_left = 264.0
+offset_top = -155.0
+offset_right = 990.0
+offset_bottom = 571.0
+texture = ExtResource("7_5acrp")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Neck/Camera3D/CanvasLayer/Death Screen"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 533.0
+offset_right = 696.0
+offset_bottom = 656.0
+theme_override_fonts/normal_font = ExtResource("17_cpqgf")
+theme_override_font_sizes/normal_font_size = 90
+text = "p to restart"
+
+[node name="health" type="AnimatedSprite2D" parent="Neck/Camera3D/CanvasLayer"]
+position = Vector2(156, 133)
+scale = Vector2(0.492, 0.492)
+sprite_frames = SubResource("SpriteFrames_65xng")
+animation = &"idle1health"
+autoplay = "idle"
+frame_progress = 0.212684
+
+[node name="marked" type="TextureRect" parent="Neck/Camera3D/CanvasLayer"]
+visible = false
+offset_left = 40.0
+offset_top = 418.0
+offset_right = 283.0
+offset_bottom = 661.0
+texture = ExtResource("14_kt2tf")
+expand_mode = 1
+
+[node name="blindness" type="TextureRect" parent="Neck/Camera3D/CanvasLayer"]
+visible = false
+offset_left = -225.0
+offset_top = -21.0
+offset_right = 575.0
+offset_bottom = 668.0
+texture = ExtResource("15_rchfo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Neck/Camera3D/CanvasLayer"]
+position = Vector2(576, 322)
+sprite_frames = SubResource("SpriteFrames_a37vh")
+animation = &"hit"
+autoplay = "default"
+
+[node name="hitmarker" type="Timer" parent="Neck/Camera3D/CanvasLayer/AnimatedSprite2D"]
+wait_time = 0.23
+one_shot = true
+
+[node name="menu" type="TextureRect" parent="Neck/Camera3D/CanvasLayer"]
+visible = false
+offset_left = -8.0
+offset_top = -18.0
+offset_right = 1187.0
+offset_bottom = 674.0
+texture = ExtResource("15_rchfo")
+script = ExtResource("16_d3j7o")
+
+[node name="HSlider" type="HSlider" parent="Neck/Camera3D/CanvasLayer/menu"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 164.0
+offset_right = 780.0
+offset_bottom = 205.0
+size_flags_vertical = 1
+min_value = -30.0
+max_value = 0.0
+step = 0.001
+
+[node name="HSlider2" type="HSlider" parent="Neck/Camera3D/CanvasLayer/menu"]
+layout_mode = 0
+offset_left = 324.0
+offset_top = 313.0
+offset_right = 784.0
+offset_bottom = 354.0
+size_flags_vertical = 1
+min_value = -30.0
+max_value = 0.0
+step = 0.001
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Neck/Camera3D/CanvasLayer/menu"]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 308.0
+offset_right = 512.0
+offset_bottom = 348.0
+text = "sfx"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Neck/Camera3D/CanvasLayer/menu"]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 130.0
+offset_right = 478.0
+offset_bottom = 170.0
+text = "music
+"
+
+[node name="Button" type="Button" parent="Neck/Camera3D/CanvasLayer/menu"]
+layout_mode = 0
+offset_left = 1027.0
+offset_top = 608.0
+offset_right = 1122.0
+offset_bottom = 639.0
+text = "close game
+"
+
+[node name="CheckButton" type="CheckButton" parent="Neck/Camera3D/CanvasLayer/menu"]
+layout_mode = 0
+offset_left = 412.0
+offset_top = 435.0
+offset_right = 537.0
+offset_bottom = 466.0
+text = "fullscreen"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Neck/Camera3D/CanvasLayer/menu"]
+layout_mode = 0
+offset_left = 333.0
+offset_top = 475.0
+offset_right = 543.0
+offset_bottom = 624.0
+text = "controls-
+attack: left click
+close/open menu: escape
+interact: e
+jump: spacebar
+restart: p"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Neck/Camera3D/CanvasLayer"]
+visible = false
+offset_left = 359.0
+offset_top = 168.0
+offset_right = 970.0
+offset_bottom = 355.0
+theme_override_fonts/normal_font = ExtResource("17_cpqgf")
+theme_override_font_sizes/normal_font_size = 90
+text = "YOU WIN!"
+
+[node name="RayCast3D" type="RayCast3D" parent="Neck/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -1000, 0)
+collision_mask = 5
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+
+[node name="marked" type="Timer" parent="."]
+wait_time = 2.5
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(2.103, 0, 0, 0, 2.103, 0, 0, 0, 2.103, 0, 0, 0)
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_xirkm")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_mwrux")
+volume_db = -14.054
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_mr2qv")
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_hrkqd")
+bus = &"Music"
+
+[node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_arjr4")
+volume_db = -32.774
+
+[connection signal="timeout" from="Neck/Camera3D/CanvasLayer/AnimatedSprite2D/hitmarker" to="." method="_on_hitmarker_timeout"]
+[connection signal="value_changed" from="Neck/Camera3D/CanvasLayer/menu/HSlider" to="Neck/Camera3D/CanvasLayer/menu" method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="Neck/Camera3D/CanvasLayer/menu/HSlider2" to="Neck/Camera3D/CanvasLayer/menu" method="_on_h_slider_2_value_changed"]
+[connection signal="button_down" from="Neck/Camera3D/CanvasLayer/menu/Button" to="Neck/Camera3D/CanvasLayer/menu" method="_on_button_button_down"]
+[connection signal="toggled" from="Neck/Camera3D/CanvasLayer/menu/CheckButton" to="Neck/Camera3D/CanvasLayer/menu" method="_on_check_button_toggled"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="marked" to="." method="_on_marked_timeout"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

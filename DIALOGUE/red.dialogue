@@ -1,0 +1,19 @@
+~ start
+
+Red: hey
+- Hey
+Red: you see that eyeball in the sky? could you get rid of it for me? it kinda creeps me out.
+- Sure
+	Red: cool. hop to it.
+	- What do you want me to do?
+		Red: i don't know, figure it out. tip for you, by the way, because I like you. those laser eye thingies, wait for the icon to disappear before approaching them.
+	- Can I have a gun?
+		Red: why
+		- to kill it
+		Red: well, i don't have a gun, but you can have this thing i guess. tip for you, by the way, because I like you. those laser eye thingies, wait for the icon to disappear before approaching them.
+		*THING acquired!*
+		
+- Maybe I'll get rid of YOU INSTEAD!
+	haha.
+
+=> END!

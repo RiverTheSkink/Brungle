@@ -1,0 +1,88 @@
+[gd_scene load_steps=14 format=3 uid="uid://feup4p7vxsot"]
+
+[ext_resource type="Script" path="res://ENEMYTSCN/crawl.gd" id="1_bqoq6"]
+[ext_resource type="Texture2D" uid="uid://bsgf2pcwyi0wj" path="res://ASSETS/enemies/Crawl/crawl.png" id="2_nhhls"]
+[ext_resource type="Texture2D" uid="uid://d08qxtrb7x3o4" path="res://ASSETS/enemies/Crawl/crawl2.png" id="3_kptyh"]
+[ext_resource type="Texture2D" uid="uid://duamxwkhqws0s" path="res://ASSETS/enemies/Crawl/crawldie1.png" id="3_lsi7b"]
+[ext_resource type="Texture2D" uid="uid://bisdrjq5lmycb" path="res://ASSETS/enemies/Crawl/crawldie2.png" id="4_7id66"]
+[ext_resource type="AudioStream" uid="uid://cnspe8i0at8kk" path="res://AUDIO/crawldeath.mp3" id="6_6wjnw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hkxuw"]
+radius = 0.5325
+height = 1.065
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_od1a0"]
+atlas = ExtResource("2_nhhls")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fipg"]
+atlas = ExtResource("3_lsi7b")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7p8wv"]
+atlas = ExtResource("4_7id66")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42ge7"]
+atlas = ExtResource("2_nhhls")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qgxd"]
+atlas = ExtResource("3_kptyh")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_td1i4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_od1a0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0fipg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7p8wv")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42ge7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qgxd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Crawl" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_bqoq6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00621915, 0.479588, 0.00525519)
+shape = SubResource("CapsuleShape3D_hkxuw")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.182, 0)
+billboard = 2
+sprite_frames = SubResource("SpriteFrames_td1i4")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="death" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_6wjnw")
+bus = &"SFX"
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 1.4
+avoidance_enabled = true
+radius = 0.05
+
+[connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

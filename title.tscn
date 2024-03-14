@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://bb1qnig8v6s3u"]
+
+[ext_resource type="Script" path="res://title.gd" id="1_6nas1"]
+[ext_resource type="VideoStream" path="res://ASSETS/title/glitterytitle.ogv" id="1_twtjd"]
+[ext_resource type="VideoStream" path="res://ASSETS/title/popngrowtitle.ogv" id="2_1olth"]
+[ext_resource type="VideoStream" path="res://ASSETS/title/wiggletitle.ogv" id="3_vijq4"]
+[ext_resource type="FontFile" uid="uid://xa43cgxufhlm" path="res://FONTS/BeerGlass.ttf" id="4_n381i"]
+[ext_resource type="AudioStream" uid="uid://dmrymy1g77pkb" path="res://AUDIO/waaaaah.mp3" id="6_tvjvw"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6nas1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1175.0
+offset_bottom = 661.0
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 17.0
+offset_right = 865.0
+offset_bottom = 321.0
+stream = ExtResource("1_twtjd")
+autoplay = true
+loop = true
+
+[node name="VideoStreamPlayer2" type="VideoStreamPlayer" parent="."]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 351.0
+offset_right = 621.0
+offset_bottom = 655.0
+stream = ExtResource("2_1olth")
+autoplay = true
+loop = true
+
+[node name="VideoStreamPlayer3" type="VideoStreamPlayer" parent="."]
+layout_mode = 0
+offset_left = 563.0
+offset_top = 280.0
+offset_right = 1171.0
+offset_bottom = 584.0
+stream = ExtResource("3_vijq4")
+autoplay = true
+loop = true
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 772.0
+offset_top = 266.0
+offset_right = 916.0
+offset_bottom = 333.0
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 0.929412, 0.917647, 1)
+theme_override_fonts/font = ExtResource("4_n381i")
+theme_override_font_sizes/font_size = 77
+text = "play!!!!!!!!!
+"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_tvjvw")
+volume_db = -19.664
+autoplay = true
+
+[connection signal="button_up" from="Button" to="." method="_on_button_button_up"]

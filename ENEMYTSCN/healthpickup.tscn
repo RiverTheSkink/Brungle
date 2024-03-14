@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://cw5ydt0cdy31b"]
+
+[ext_resource type="Texture2D" uid="uid://cuqn84lq4hx43" path="res://ASSETS/textures/healthbar/1hp.png" id="1_757bl"]
+[ext_resource type="Texture2D" uid="uid://ch1nr007v60sg" path="res://ASSETS/textures/healthbar/1hp2.png" id="2_xdtah"]
+[ext_resource type="Script" path="res://ENEMYTSCN/healthpickup.gd" id="3_nof5h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eb6xd"]
+atlas = ExtResource("1_757bl")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_atof8"]
+atlas = ExtResource("2_xdtah")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_toms8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eb6xd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_atof8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_52krl"]
+radius = 2.3092
+
+[node name="healthpickup" type="AnimatedSprite3D"]
+transform = Transform3D(0.395, 0, 0, 0, 0.395, 0, 0, 0, 0.395, 0, 0, 0)
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_toms8")
+autoplay = "default"
+frame_progress = 0.262044
+script = ExtResource("3_nof5h")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_52krl")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

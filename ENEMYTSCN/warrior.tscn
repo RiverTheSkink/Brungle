@@ -1,0 +1,95 @@
+[gd_scene load_steps=13 format=3 uid="uid://b5pg7k8yv8dq7"]
+
+[ext_resource type="Texture2D" uid="uid://cay77t4mqp38t" path="res://ASSETS/enemies/warrior/warrioridle1.png" id="1_536fv"]
+[ext_resource type="Script" path="res://ENEMYTSCN/warrior.gd" id="1_vcvp2"]
+[ext_resource type="Texture2D" uid="uid://bnjihtqtjq6dt" path="res://ASSETS/enemies/warrior/warrioridle2.png" id="2_vobvi"]
+[ext_resource type="Texture2D" uid="uid://bbok57j1mh2ms" path="res://ASSETS/enemies/warrior/warrioridle3.png" id="3_p4nt4"]
+[ext_resource type="Texture2D" uid="uid://sascxkvhv4d1" path="res://ASSETS/enemies/warrior/warrioridle4.png" id="4_go7ko"]
+[ext_resource type="AudioStream" uid="uid://hweaenk35yt4" path="res://AUDIO/brapdeath.mp3" id="6_d7jrg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c012s"]
+atlas = ExtResource("1_536fv")
+region = Rect2(0, 0, 500, 900)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxwrp"]
+atlas = ExtResource("2_vobvi")
+region = Rect2(0, 0, 500, 900)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2xd0"]
+atlas = ExtResource("3_p4nt4")
+region = Rect2(0, 0, 500, 900)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1lgv"]
+atlas = ExtResource("4_go7ko")
+region = Rect2(0, 0, 500, 900)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ihml5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c012s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxwrp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2xd0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1lgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2xd0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxwrp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c012s")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hqrle"]
+radius = 1.1527
+height = 3.5875
+
+[node name="warrior" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_vcvp2")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.295, 0, 0, 0, 0.295, 0, 0, 0, 0.295, 0, 0.214212, 0)
+layers = 4
+billboard = 2
+sprite_frames = SubResource("SpriteFrames_ihml5")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.824544
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.646101, 0, 0, 0, 0.646101, 0, 0, 0, 0.646101, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_hqrle")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 15.0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_d7jrg")
+max_db = -2.676
+bus = &"SFX"
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+collision_mask = 3
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.256144, 0)
+
+[connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

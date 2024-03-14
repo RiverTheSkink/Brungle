@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://btul7jo2xmafg"]
+
+[ext_resource type="Texture2D" uid="uid://nmysogjj44ac" path="res://ASSETS/weapons/guardian.png" id="1_puy8n"]
+[ext_resource type="Script" path="res://ENEMYTSCN/guardian.gd" id="2_ppfr3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hdc3o"]
+radius = 0.844235
+height = 4.44506
+
+[node name="guardian" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("2_ppfr3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 2.5246, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_hdc3o")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+texture = ExtResource("1_puy8n")
